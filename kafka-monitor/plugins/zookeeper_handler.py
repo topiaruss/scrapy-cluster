@@ -22,6 +22,7 @@ class ZookeeperHandler(BaseHandler):
                                       decode_responses=True)
 
         try:
+            self.logger.debug("Connecting to Redis in ZookeeperHandler %s" % settings)
             self.redis_conn.info()
             self.logger.debug("Connected to Redis in ZookeeperHandler")
         except ConnectionError:
