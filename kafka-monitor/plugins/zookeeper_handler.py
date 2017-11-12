@@ -26,12 +26,14 @@ class ZookeeperHandler(BaseHandler):
             for k,v in sorted(settings.items()):
                 if 'TIME' in k:
                     continue
-                self.logger.debug("%s: %s", %(k,v))
+                self.logger.debug("%s: %s" % (k,v))
             self.redis_conn.info()
             self.logger.debug("Connected to Redis in ZookeeperHandler")
         except ConnectionError:
-            self.logger.error("Failed to connect to Redis in ZookeeperHandler")
+            self.logger.exception("Failed to connect to Redis in ZookeeperHandler")
             # plugin is essential to functionality
+            import time
+            time.sleep(100)
             sys.exit(1)
 
     def handle(self, dict):
