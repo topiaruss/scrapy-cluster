@@ -22,7 +22,11 @@ class ZookeeperHandler(BaseHandler):
                                       decode_responses=True)
 
         try:
-            self.logger.debug("Connecting to Redis in ZookeeperHandler %s" % settings)
+            self.logger.debug("Connecting to Redis in ZookeeperHandler")
+            for k,v in sorted(settings.items()):
+                if 'TIME' in k:
+                    continue
+                self.logger.debug("%s: %s", %(k,v))
             self.redis_conn.info()
             self.logger.debug("Connected to Redis in ZookeeperHandler")
         except ConnectionError:
